@@ -409,7 +409,7 @@
 				<logger.appender>console</logger.appender>
 				<jpa.show_sql>true</jpa.show_sql>
 				<jpa.format_sql>true</jpa.format_sql>
-				<postgres.url>jdbc:postgresql://localhost:8080/labnascimento</postgres.url>
+				<postgres.url>jdbc:postgresql://localhost:5433/labnascimento</postgres.url>
 				<postgres.username>postgres</postgres.username>
 				<postgres.password>postgres</postgres.password>
 				<postgres.hibernate.format_sql>true</postgres.hibernate.format_sql>
