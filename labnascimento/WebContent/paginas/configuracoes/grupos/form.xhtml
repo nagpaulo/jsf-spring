@@ -1,0 +1,37 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:jsf="http://xmlns.jcp.org/jsf">
+<ui:composition template="/template/padrao-form.xhtml">
+	
+	
+	<ui:define name="tituloPaginaIcon">
+		<i class="fa fa-group"></i>
+	</ui:define>
+	<ui:define name="parametros">
+		<ui:param name="tituloPagina" value="Grupos - #{bean.atualizando ? 'Atualizar' : 'Cadastro'}" />
+		<ui:param name="bean" value="#{securityGrupoFormBean}" />	
+		<f:metadata>
+			<f:viewParam  name="reg" value="#{securityGrupoFormBean.id}" />
+			<f:viewAction action="#{securityGrupoFormBean.prepareView()}" />
+		</f:metadata>
+		<ui:param name="entity" value="#{securityGrupoFormBean.entity}" />
+	</ui:define>
+	
+	<ui:define name="conteudo">
+		<ui:param name="bean" value="#{securityGrupoFormBean}" />	
+		<f:metadata>
+			<f:viewParam  name="reg" value="#{securityGrupoFormBean.id}" />
+			<f:viewAction action="#{securityGrupoFormBean.prepareView()}" />
+		</f:metadata>
+		<ui:param name="entity" value="#{securityGrupoFormBean.entity}" />
+		
+		<ui:include src="_form-grupo.xhtml" ></ui:include>
+		
+	</ui:define>
+
+</ui:composition>
+</html>

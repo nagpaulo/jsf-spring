@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+	xmlns:beans="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p" xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans    http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+								  http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.2.xsd
+								  http://www.springframework.org/schema/util     http://www.springframework.org/schema/util/spring-util-3.1.xsd">
+
+
+	<beans:bean id="sessionManagementFilter"
+		class="org.springframework.security.web.session.SessionManagementFilter">
+		<beans:constructor-arg name="securityContextRepository"
+			ref="httpSessionSecurityContextRepository" />
+		<beans:property name="invalidSessionStrategy" ref="jsfRedirectStrategy" />
+	</beans:bean>
+	<beans:bean id="jsfRedirectStrategy"
+		class="br.gov.ce.seduc.security.service.JsfRedirectStrategy">
+		<beans:constructor-arg name="invalidSessionUrl"
+			value="/login.jsf" />
+	</beans:bean>
+	<beans:bean id="httpSessionSecurityContextRepository"
+		class="org.springframework.security.web.context.HttpSessionSecurityContextRepository" />
+	
+	
+	<beans:bean id="successAuthenticationHandler"
+		class="br.com.tethys.labnascimento.security.service.SeducAuthenticationSuccessHandler">
+		<beans:property name="changePasswordUrl"
+			value="/paginas/configuracoes/alterarsenha/form.jsf"></beans:property>
+	</beans:bean>
+	<beans:bean id="accessDeniedHandler"
+		class="br.com.tethys.labnascimento.security.service.SeducJSFAccessDeniedHandler">
+	</beans:bean>
+	<beans:bean id="authenticationFailureDeniedHandler"
+		class="org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler">
+		<beans:property name="defaultFailureUrl" value="/login.jsf" />
+	</beans:bean>
+	
+	<beans:bean id="authenticationEntryPoint"
+		class="org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint">
+		<beans:constructor-arg name="loginFormUrl" value="/login.jsf" />
+	</beans:bean>
+
+	<beans:bean id="ddAuthenticationFilter"
+		class="org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter">
+		<beans:property name="authenticationManager" ref="authenticationManager" />
+		<beans:property name="filterProcessesUrl" value="/j_spring_security_check" />
+		<beans:property name="usernameParameter" value="username" />
+		<beans:property name="passwordParameter" value="password" />
+		<beans:property name="authenticationSuccessHandler"
+			ref="successAuthenticationHandler" />
+		<beans:property name="authenticationFailureHandler"
+			ref="authenticationFailureDeniedHandler" />	
+	</beans:bean>
+	
+	
+	<!--
+	 Todas regras de acesso ao sistema devem ser definidas aqui, utilizando a tag intercept-url
+	 o attributo access recebe uma DSL definida pelo spring-security para mais informações:
+	 http://docs.spring.io/spring-security/site/docs/3.0.x/reference/el-access.html
+	 -->
+	<http use-expressions="true" auto-config="false" entry-point-ref="authenticationEntryPoint" >
+
+		<custom-filter ref="ddAuthenticationFilter" position="FORM_LOGIN_FILTER" />
+		<logout logout-url="/logout.jsf" logout-success-url="/login.jsf"
+			invalidate-session="true" />
+		<access-denied-handler ref="accessDeniedHandler" />
+
+		<intercept-url pattern="/login.jsf" access="permitAll" />
+		<intercept-url pattern="/home.jsf" access="isAuthenticated()" />
+		<intercept-url pattern="/resources/**" access="permitAll" />
+		<intercept-url pattern="/template/**" access="permitAll" />
+		<intercept-url pattern="/favicon.ico" access="permitAll" />
+		<intercept-url pattern="/javax.*/**" access="permitAll" />
+
+		<!-- ROLE_MASTER -->
+		<!-- PERMITIR ACESSO A TUDO CASO ESTEJA AUTENTICADO -->
+		<intercept-url pattern="/paginas/opcoes/grupos/form.jsf"
+			access="hasAnyRole('PERM_GRUPOUSUARIOS_INSERIR','PERM_GRUPOUSUARIOS_EDITAR')" />
+		<intercept-url pattern="/paginas/opcoes/grupos/**" access="hasRole('PERM_GRUPOUSUARIOS')" />
+
+			
+		<!-- Menu configuracoes -->
+		<intercept-url pattern="/paginas/configuracoes/usuarios/*" access="hasRole('PERM_USUARIOS')" />		
+		<intercept-url pattern="/paginas/configuracoes/transacoes/**" access="denyAll" />
+		<intercept-url pattern="/paginas/configuracoes/grupos/**" access="denyAll" />
+		<intercept-url pattern="/paginas/configuracoes/alterarsenha/form.jsf" access="isAuthenticated()" />
+		
+		<intercept-url pattern="/paginas/**" access="isAuthenticated()" />		
+		
+		
+		
+		
+		<custom-filter ref="concurrencyFilter" position="CONCURRENT_SESSION_FILTER" />
+		<custom-filter ref="sessionManagementFilter" before="SESSION_MANAGEMENT_FILTER" />
+		<session-management
+			session-authentication-strategy-ref="sas">
+		</session-management>	
+	</http>
+	
+		<beans:bean id="concurrencyFilter"
+		class="org.springframework.security.web.session.ConcurrentSessionFilter">
+		<beans:property name="sessionRegistry" ref="sessionRegistry" />
+		<beans:property name="expiredUrl" value="/session-expired.htm" />
+	</beans:bean>
+	<beans:bean id="sas"
+		class="org.springframework.security.web.authentication.session.ConcurrentSessionControlStrategy">
+		<beans:constructor-arg name="sessionRegistry"
+			ref="sessionRegistry" />
+		<beans:property name="maximumSessions" value="1" />
+	</beans:bean>
+	<beans:bean id="sessionRegistry"
+		class="org.springframework.security.core.session.SessionRegistryImpl" />
+
+	<!-- Password encoder ( default da seduc MD5 ) -->
+	<beans:bean id="passwordEncoder"
+		class="org.springframework.security.authentication.encoding.Md5PasswordEncoder" />
+	
+	
+	<!--
+	 Define o provider padrao de acesso, possivel modificar o provider e especificar
+	regras especificas de acesso ao sistema
+	 -->
+	<beans:bean id="authenticationProvider"
+		class="br.gov.ce.seduc.security.service.SeducAuthenticationProvider" depends-on="moduloInfo">
+		<beans:property name="moduloInfo" ref="moduloInfo" />
+		<!-- Configura todas as regras de acesso ao sistema -->
+		<beans:property name="regrasAcesso">
+			<beans:list>
+				<beans:bean
+					class="br.com.tethys.labnascimento.security.service.RegraAcessoSenhaConfere">
+					<beans:property name="encoder" ref="passwordEncoder" />
+				</beans:bean>
+				<beans:bean
+					class="br.com.tethys.labnascimento.security.service.RegraAcessoPossuiAcessoModulo" />
+			</beans:list>
+		</beans:property>
+	</beans:bean>
+	
+	<!-- Configura authenticator manager e define provider padrão -->
+	<authentication-manager alias="authenticationManager" erase-credentials="true">
+		<authentication-provider ref="authenticationProvider">
+		</authentication-provider>
+	</authentication-manager>
+
+</beans:beans>

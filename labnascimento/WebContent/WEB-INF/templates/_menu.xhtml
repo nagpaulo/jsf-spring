@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:sec="http://www.springframework.org/security/tags"
+	xmlns:seduc="http://seduc.ce.gov.br/componentes">
+<ui:composition>
+	<ui:param name="path" value="#{request.contextPath}" />
+	<ui:param name="paginas" value="#{request.contextPath}/paginas" />
+
+	<ui:param name="path" value="#{request.contextPath}" />
+	<seduc:menu id="menuPrincipal"
+		binding="#{menuPreRenderEvent.menuComponent}">
+		
+				
+		<seduc:menuitem label="Início" icon="fa fa-home" url="#{path}"></seduc:menuitem>
+		
+		<seduc:submenu label="#{msgs['menu.matricula']}" icon="fa fa-graduation-cap">
+			<seduc:menuitem label="#{msgs['menu.matricula.alunoParticular']}"
+					 url="#{paginas}/matricula/aluno-particular/list.jsf" />
+			<seduc:menuitem label="#{msgs['menu.matricula.alunoDisciplina']}"
+					 url="#{paginas}/matricula/aluno-disciplina/list.jsf" />
+			<seduc:menuitem label="#{msgs['menu.matricula.rematricula']}"
+					 url="#{paginas}/matricula/rematricula/list.jsf" />
+			<seduc:menuitem label="#{msgs['menu.matricula.tipo-atendimento']}"
+					 url="#{paginas}/matricula/tipo-atendimento/list.jsf" />
+		</seduc:submenu>
+		
+		<seduc:submenu label="#{msgs['menu.registro']}" icon="fa fa-tasks">
+			<seduc:menuitem label="#{msgs['menu.registro.oferta-regular']}" url="#{paginas}/registro/oferta-regular/list.jsf"></seduc:menuitem>
+			<seduc:submenu label="#{msgs['menu.registro.progressao-parcial']}">
+				<seduc:menuitem label="#{msgs['menu.registro.progressao-parcial-publica']}" url="#{paginas}/registro/progressao-parcial-publica/list.jsf"></seduc:menuitem>
+				<seduc:menuitem label="#{msgs['menu.registro.progressao-parcial-particular']}" url="#{paginas}/registro/progressao-parcial-particular/list.jsf"></seduc:menuitem>
+			</seduc:submenu>
+			<seduc:submenu label="#{msgs['menu.registro.proficiencia']}">
+				<seduc:menuitem label="#{msgs['menu.registro.proficiencia-enem']}" url="#{paginas}/registro/proficiencia/proficiencia-enem/list.jsf"></seduc:menuitem>
+				<seduc:menuitem label="#{msgs['menu.registro.proficiencia-encceja']}" url="#{paginas}/registro/proficiencia/proficiencia-encceja/list.jsf"></seduc:menuitem>
+			</seduc:submenu>
+			<seduc:submenu label="#{msgs['menu.registro.aproveitamento-estudos']}">
+				<seduc:menuitem label="#{msgs['menu.registro.aproveitamento-estudos-3ano']}" url="#{paginas}/registro/aproveitamento-estudo-terceiro-ano/list.jsf"></seduc:menuitem>
+				<seduc:menuitem label="#{msgs['menu.registro.aproveitamento-estudos-enem']}" url="#{paginas}/registro/aproveitamento-estudo-enem/list.jsf"></seduc:menuitem>
+			</seduc:submenu>
+			<seduc:menuitem label="#{msgs['menu.registro.atualizacao_estudos']}" url="#{paginas}/registro/atualizacao-estudos/list.jsf"></seduc:menuitem>
+		</seduc:submenu>
+		
+		<seduc:submenu label="#{msgs['menu.atendimento']}" icon="fa fa-users">
+			<seduc:menuitem label="#{msgs['menu.atendimento.professor']}" url="#{paginas}/atendimento/professor/list.jsf"></seduc:menuitem>
+		</seduc:submenu>
+		
+		<seduc:submenu label="#{msgs['menu.sasp']}" icon="fa fa-briefcase">
+			<seduc:menuitem label="#{msgs['menu.sasp.encaminhamento']}" url="#{paginas}/registro/oferta-regular/list.jsf"></seduc:menuitem>
+			<seduc:menuitem label="#{msgs['menu.sasp.orientacao-diagnostico-matricula']}" url="#{paginas}/registro/oferta-regular/list.jsf"></seduc:menuitem>
+			<seduc:menuitem label="#{msgs['menu.sasp.sinalizacao']}" url="#{paginas}/registro/oferta-regular/list.jsf"></seduc:menuitem>
+			<seduc:menuitem label="#{msgs['menu.sasp.registro-infrequencia']}" url="#{paginas}/registro/oferta-regular/list.jsf"></seduc:menuitem>
+			<seduc:menuitem label="#{msgs['menu.sasp.alunos-concludentes']}" url="#{paginas}/registro/oferta-regular/list.jsf"></seduc:menuitem>
+		</seduc:submenu>
+		
+		<seduc:submenu label="#{msgs['menu.relatorio']}" icon="fa-file-text-o">
+			<seduc:menuitem label="#{msgs['menu.relatorio.atendimento']}" url="#{paginas}/relatorios/atendimento/list.jsf"></seduc:menuitem>
+			<seduc:menuitem label="#{msgs['menu.relatorio.encaminhamento-sasp']}" url="#{paginas}/registro/oferta-regular/list.jsf"></seduc:menuitem>
+			<seduc:menuitem label="#{msgs['menu.relatorio.fluxo-atendimento']}" url="#{paginas}/registro/oferta-regular/list.jsf"></seduc:menuitem>
+			<seduc:menuitem label="#{msgs['menu.relatorio.listagem-alunos']}" url="#{paginas}/registro/oferta-regular/list.jsf"></seduc:menuitem>
+			<seduc:menuitem label="#{msgs['menu.relatorio.alunos-concludentes']}" url="#{paginas}/registro/oferta-regular/list.jsf"></seduc:menuitem>
+			<seduc:menuitem label="#{msgs['menu.relatorio.certificacao-enem-encceja']}" url="#{paginas}/registro/oferta-regular/list.jsf"></seduc:menuitem>
+		</seduc:submenu>
+		
+		<seduc:submenu label="#{msgs['menu.parametros']}" icon="fa fa-bars">
+			<seduc:menuitem label="#{msgs['menu.parametros.modulo']}"
+					 url="#{paginas}/parametros/modulo/list.jsf" />
+			<seduc:menuitem label="#{msgs['menu.parametros.colecao']}"
+					 url="#{paginas}/parametros/colecao/list.jsf" />
+			<seduc:menuitem label="#{msgs['menu.parametros.disciplina-modulo']}"
+					 url="#{paginas}/parametros/disciplina-modulo/list.jsf" />		 
+		</seduc:submenu>
+		
+		<f:facet name="rightNav">
+			<seduc:submenu label="#{msgs['menu.configuracoes']}" icon="fa-gear">
+				<seduc:menuitem label="#{msgs['menu.configuracoes.alterarSenha']}"
+					url="#{paginas}/configuracoes/alterarsenha/form.jsf" />
+				<li class="divider"></li>
+				<seduc:menuitem label="#{msgs['menu.configuracoes.usuarios']}"
+					url="#{paginas}/configuracoes/usuarios/list.jsf" />
+				<seduc:menuitem label="#{msgs['menu.configuracoes.grupos']}"
+					url="#{paginas}/configuracoes/grupos/list.jsf" />
+				<!--  USUARIO MASTER TEM ACESSO -->
+				<li class="divider"></li>
+				<seduc:menuitem label="#{msgs['menu.sair']}"
+						url="#{path}/logout.jsf" icon="fa-sign-out"></seduc:menuitem>
+				
+			</seduc:submenu>
+		</f:facet>
+
+		<f:event type="preRenderView" listener="#{menuPreRenderEvent.execute}" />
+	</seduc:menu>
+	<!-- FIM MENU -->
+</ui:composition>
+</html>

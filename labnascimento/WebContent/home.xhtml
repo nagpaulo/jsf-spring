@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:sec="http://www.springframework.org/security/tags"
+	xmlns:seduc="http://java.sun.com/jsf/composite/componentes">
+<ui:composition template="/template/padrao.xhtml">
+
+	<ui:define name="tituloPagina">
+	</ui:define>
+	<ui:define name="parametros">
+		<ui:param name="tituloPagina" value="#{msgs['home.title']}"/>
+	</ui:define>
+	
+	<ui:define name="painelConteudo">
+		<ui:param name="bean" value="#{homeBean}" />
+		<f:event listener="#{bean.alunosCom30OuMaisDiasSemAtendimento}" type="preRenderView"></f:event>
+		<p:dialog id="dlgAlunoSuspensao" header="#{msgs['label.alunosCom30OuMaisDiasSemAtendimento']}" widgetVar="dlgAlunoSuspensao" modal="true" draggable="false" resizable="false" width="50%" >
+			
+			<div class="alert alert-warning" style="width: 98%; margin-left: 1%; font-size: 16px;">
+				O(s) aluno(s) listado(s) abaixo está(ão) com 30 ou mais dias sem atendimento, lembramos que se um aluno atingir 60 dias sem atendimento a matrícula dele
+				é suspensa.										
+			</div>
+			
+			<p:dataTable var="alunos" value="#{bean.listaAlunoSuspensao}" rows="10" tableStyleClass="table table-striped table-bordered table-hover table-condensed"
+					paginator="true" paginatorPosition="bottom" reflow="true" paginatorAlwaysVisible="true"
+					paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
+					currentPageReportTemplate="Página {currentPage} de {totalPages} ({totalRecords} registros)" 
+					rowIndexVar="rowIndex"	emptyMessage="#{msgs['msgs.empty']}">
+				<p:column headerText="#{msgs['label.matricula']}" width="20%">
+					<h:outputText value="#{alunos.id}"/>
+				</p:column>
+				<p:column headerText="#{msgs['label.nome']}">
+					<h:outputText value="#{alunos.nome}"/>
+				</p:column>
+			</p:dataTable>
+		</p:dialog>
+		
+		<div class="bem-vindo text-center">		
+			<h1><i class="fa fa-smile-o"></i>#{msgs['home.bemvindo']}</h1>
+			<small>#{msgs['home.texto']}</small>
+		</div> 
+		
+		<p:messages />
+	</ui:define>
+
+</ui:composition>
+</html>

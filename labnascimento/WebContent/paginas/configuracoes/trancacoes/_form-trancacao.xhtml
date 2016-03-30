@@ -1,0 +1,88 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:jsf="http://xmlns.jcp.org/jsf"
+	xmlns:seduc="http://java.sun.com/jsf/composite/componentes">
+<ui:decorate template="/template/form.xhtml" >
+	
+	<ui:define name="conteudo">
+		<div class="col-md-12">
+			<div class="form-group">
+				<label class="col-md-2 control-label">Unidade Trabalho:*</label>
+				<div class="col-md-6">
+					<seduc:lov  id="instituicaoLov"
+		   			   			value="#{entity.unidadeDeTrabalho}"
+								header="Unidade de Trabalho"
+								label="Unidade de Trabalho"
+								required="true"
+								lista="#{usuarioFormBean.unidadeDeTrabalhoDataModel}"
+								codigo="#{usuarioFormBean.unidadeDeTrabalhoDataModel.filtro.numero}"
+								descricao="#{usuarioFormBean.unidadeDeTrabalhoDataModel.filtro.descricao}">									
+								
+						<p:column headerText="Codigo" width="120" >#{item.numero}</p:column>
+						<p:column headerText="Descrição">#{item.descricao}</p:column>	 
+					</seduc:lov>
+				</div>
+			</div> 
+			<div class="form-group">
+				<label class="col-md-2 control-label">Nome:*</label>
+				<div class="col-md-6">
+					<p:inputText id="nome" label="Nome" value="#{entity.nome}" size="50"
+						required="true" maxlength="50" styleClass="form-control">
+					</p:inputText>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-md-2 control-label">Login:*</label>
+				<div class="col-md-6">
+					<p:inputText id="login" label="Login" value="#{entity.login}" size="30"
+						maxlength="30" styleClass="form-control" required="true" />
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-md-2 control-label">CPF:*</label>
+				<div class="col-md-6">
+					<p:inputMask mask="999.999.999-99" label="Cpf" value="#{entity.cpf}" size="20"
+						maxlength="14" styleClass="form-control" required="true" converter="cpfConverter" />
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-md-2 control-label">Email:*</label>
+				<div class="col-md-6">
+					<p:inputText label="Email" maxlength="50"
+						style="text-transform: lowercase;" value="#{entity.email}" size="50"
+						styleClass="form-control" />
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-md-2 control-label">Email:*</label>
+				<div class="col-md-6">
+					<p:selectOneRadio>
+						<f:selectItem itemLabel="Label"  />
+					</p:selectOneRadio>
+				</div>
+			</div>
+			
+			<div class="form-group">
+				<label class="col-md-2 control-label">Data Nascimento:*</label>
+				<div class="col-md-6">
+					<p:calendar showOn="button" navigator="true" pattern="dd/MM/yyyy"  value="#{entity.dataNascimento}" />
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-md-2 control-label">Grupos:*</label>
+				<div class="col-md-6">
+					<p:pickList id="grupos" label="Grupos"
+						value="#{usuarioFormBean.grupos}" >
+						<f:facet name="sourceCaption">Disponíveis</f:facet>
+						<f:facet name="targetCaption">Vinculados</f:facet>
+					</p:pickList>
+				</div>
+			</div>
+		</div>
+	</ui:define>
+	
+</ui:decorate>
+</html>

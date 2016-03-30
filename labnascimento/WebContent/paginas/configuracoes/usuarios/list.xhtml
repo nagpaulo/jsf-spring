@@ -1,0 +1,76 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" xmlns:jsf="http://xmlns.jcp.org/jsf"
+	xmlns:seduc="http://seduc.ce.gov.br/componentes">
+<ui:composition template="/template/padrao-list.xhtml">
+	
+	
+	<ui:define name="parametros">
+		<ui:param name="bean" value="#{securityUsuarioListBean}" />
+		<ui:param name="transacao" value="USUARIOS" />
+		<ui:param name="tituloPagina" value="#{msgs['usuarios.title.list']}" />
+	</ui:define> 
+	<ui:define name="parametrosDatatable">
+		<ui:param name="colunaAcoesWidth" value="65" />
+	</ui:define>
+	<ui:define name="tituloPaginaIcon">
+		<i class="fa fa-user"></i>
+	</ui:define>
+
+	<ui:define name="camposFiltro">
+		<ui:param name="filtro" value="#{bean.lazyDataModel.filtro}" />
+		<div class="row">
+			<div class="col-md-6">
+				<div class="form-group">
+					<label class="control-label">Nome:</label> <input type="text"
+						name="search1" jsf:id="nome" jsf:value="#{filtro.nome}"
+						class="form-control" />
+				</div>
+				<div class="form-group">
+					<label class="control-label">E-mail:</label> <input type="text"
+						jsf:id="email" name="search3" jsf:value="#{filtro.email}"
+						class="form-control" maxlength="100" />
+				</div>
+			</div>
+			<div class="col-md-6">
+				<div class="form-group">
+					<label class="control-label">Login:</label> <input type="text"
+						jsf:id="login" name="search2" jsf:value="#{filtro.login}"
+						maxlength="50" class="form-control" />
+				</div>
+				<div class="form-group">
+					<label class="control-label">CPF:</label>
+					<input type="text" jsf:id="cpf" name="search4" jsf:value="#{filtro.cpf}"
+						jsf:converter="cpfConverter"
+						onkeypress="mask(this, cpf)" maxlength="14" class="form-control" />
+				</div>
+			</div>
+		</div>
+	</ui:define>
+	
+	<ui:define name="resultadoHeader">
+		<p:column headerText="Usuário" />
+		<p:column headerText="Login" />
+		<p:column headerText="Cpf" style="width:120px" />
+		<p:column headerText="Email" />
+	</ui:define>
+	<ui:define name="resultadoColumn">
+		<p:column>
+			<h:outputText value="#{item.nome}" />
+		</p:column>
+		<p:column>
+			<h:outputText value="#{item.login}" />
+		</p:column>
+		<p:column>
+			<h:outputText value="#{item.cpf}" />
+		</p:column>
+		<p:column>
+			<h:outputText value="#{item.email}" />
+		</p:column>
+	</ui:define>
+	
+</ui:composition>
+</html>

@@ -1,0 +1,31 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:jsf="http://xmlns.jcp.org/jsf"
+	xmlns:seduc="http://seduc.ce.gov.br/componentes">
+<ui:decorate template="/template/form.xhtml">
+	
+	<ui:define name="conteudo" >
+		<div class="row">
+			<seduc:formGroup label="#{msgs['label.nome']}" classSize="6"  forField="nome">
+				<p:inputText id="nome" label="#{msgs['label.nome']}" value="#{entity.nome}" size="50"
+						required="true" maxlength="50" styleClass="form-control">
+					</p:inputText>			
+			</seduc:formGroup>
+		</div>
+		
+		<div class="row">	
+			<seduc:formGroup label="#{msgs['label.nivelAcesso']}" classSize="4"  forField="nivel">
+				<h:selectOneMenu id="nivel" label="#{msgs['label.nivelAcesso']}" value="#{entity.nivelAcesso}"
+						 converter="genericEntityConverter" required="true" styleClass="form-control" >
+					<f:selectItem itemLabel="#{msgs['label.selecione']}" value="#{null}" />
+					<f:selectItems value="#{bean.niveis}" var="n" itemLabel="#{n.nome}" itemValue="#{n}" />
+				</h:selectOneMenu>
+			</seduc:formGroup>
+		</div>
+	</ui:define>
+	
+</ui:decorate>
+</html>

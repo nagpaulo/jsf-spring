@@ -1,0 +1,45 @@
+/**
+* @autor Paulo Roberto Mesquita da Silva
+* @Data: 20/08/2015 
+*/
+
+fieldset{ border: 1px solid #ddd; padding:8px; border-radius:4px; margin-bottom:10px}
+legend{color:#019837 !important; display:inline-block; width: auto; padding: 8px; border-bottom:none; margin-bottom:0; font-size: 15px; font-weight: bold}
+.labelBG{ font-size: 15px !important; }
+
+#formFiltroPanel{margin-bottom: 5px;}
+#panelAcoesFiltro{margin-top: 5px;}
+
+.colunaBusca{padding-right:15px;}
+.camposObrigatorios { color: #a94442 !important; font-weight: normal !important; }
+
+.ui-messages-error .ui-messages-error-icon{font-size: 14px !important;  margin: 3px 0px !important; }
+.ui-messages-error-summary{  margin-left: 2px !important; font-weight: normal !important;}
+.labelBG { padding-right: 10px; font-size: 14px !important;}
+.labelBGL { font-weight: normal; font-size: 14px !important;}
+.panelDetalhe { border-color: #c4c4c4; border-width: thin;}
+
+#tableAtendimento_data{ font-size: 12px; text-align: center; text-transform: uppercase; font-weight: bold;}
+.optionDisabled { color: red; font-weight: bold;}
+.optionEmAted { color: red; font-weight: bold;}
+.optionSemAted { color: green; font-weight: bold;}
+#discConluida { padding: 6px !important; -webkit-border-radius: 4px; -moz-border-radius: 4px; border-radius: 4px; border: 1px solid #D8D8D8; 
+	background: #ffffff; /* Old browsers */
+	background: -moz-linear-gradient(top, #ffffff 0%, #edeaea 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ffffff), color-stop(100%,#edeaea)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top, #ffffff 0%,#edeaea 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top, #ffffff 0%,#edeaea 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top, #ffffff 0%,#edeaea 100%); /* IE10+ */
+	background: linear-gradient(to bottom, #ffffff 0%,#edeaea 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#edeaea',GradientType=0 ); 
+} 
+.optionSemAted { color: green; font-weight: bold;}
+
+.help {
+    vertical-align: middle !important; background: #F7F7F7 !important; padding: 10px !important; color: #000; border-radius: 4px; 
+    box-shadow: 2px 2px 5px; border: 1px solid #D4D4D4; cursor: help; width: 245px;
+}
+
+.panelDetalhe{
+	background-color: #F7F7F7;
+}

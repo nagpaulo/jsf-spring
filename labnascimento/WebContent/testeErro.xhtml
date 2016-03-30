@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:sec="http://www.springframework.org/security/tags"
+	xmlns:seduc="http://java.sun.com/jsf/composite/componentes">
+<ui:composition template="/template/padrao.xhtml">
+
+	<ui:define name="tituloPagina">
+	</ui:define>
+	<ui:define name="parametros">
+		<ui:param name="tituloPagina" value="#{msgs['home.title']}"/>
+	</ui:define>
+	
+	<ui:define name="top">
+		
+	</ui:define>
+	
+	<ui:define name="painelConteudo">
+		<div class="bem-vindo text-center">		
+			<h1><i class="fa fa-smile-o"></i>#{msgs['home.bemvindo']}</h1>
+			<small>#{msgs['home.texto']}</small>
+		</div> 
+		#{msgs[]}
+		<p:messages />
+	</ui:define>
+
+</ui:composition>
+</html>

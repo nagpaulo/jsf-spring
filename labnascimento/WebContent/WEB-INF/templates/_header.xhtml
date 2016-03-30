@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
+<ui:composition>
+	<ui:param name="path" value="#{request.contextPath}" />
+	<div class="container">
+		<span class="marcador-ambiente">#{securityBean.ambiente}</span>
+		<p:outputPanel rendered="#{securityBean.autenticado}" >
+			<div class="user-info text-right">
+				<i class="fa fa-user"></i>
+				<h:outputText value="#{securityBean.username}" rendered="#{securityBean.autenticado}" />
+				<i class="fa fa-home"></i>
+				<h:outputText value="#{securityBean.nomeUnidadeTrabalho}" rendered="#{securityBean.autenticado}"  />
+				<i class="fa fa-calendar-o"></i>
+				<h:outputText value="#{loginBean.currentDate}" style="padding-left: 3px" >
+					<f:convertDateTime pattern="dd/MM/yyyy" />
+				</h:outputText>
+			</div>
+		</p:outputPanel>
+
+		<div class="col-xs-6">
+			<h1 class="pull-left">
+				<a id="nomeSistema" href="#{path}">
+					<span><h:outputText value="#{msgs['projeto.sobretitulo']}" /></span>
+					<span class="line2"><h:outputText value="#{msgs['projeto.titulo']}" /></span>
+				</a>
+			</h1>
+		</div>
+
+		<div class="col-xs-6">
+			<img src="#{path}/resources/imgs/logo_seduc.png"
+				class="pull-right img-responsive" id="logo-seduc" />
+		</div>
+		
+		<p:outputPanel rendered="#{securityBean.deveAlterarSenha()}">
+			<script>
+				if( window.location.pathname != '#{request.contextPath}/paginas/opcoes/alterarsenha/form.jsf'){
+					window.location = '#{request.contextPath}/paginas/opcoes/alterarsenha/form.jsf';
+				}
+			</script>
+		</p:outputPanel>
+		
+	</div>
+</ui:composition>
+</html>

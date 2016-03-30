@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:jsf="http://xmlns.jcp.org/jsf">
+<ui:composition>
+		<ui:param name="formType" value="" />
+		<ui:insert name="formParameters">
+		</ui:insert>
+		
+		<div class="row" style="margin-bottom: 10px">
+			<h:outputText value="#{msgs['msgs.camposObrigatorios']}" styleClass="col-md-12 camposObrigatorios" />
+		</div>
+		<h:form  id="form" styleClass="#{formType}" prependId="false">
+			<p:outputPanel id="formMessages">
+				<p:messages closable="true" escape="false"  />
+			</p:outputPanel>
+			<ui:insert name="conteudo">#{msgs['msgs.semConteudo']}</ui:insert>
+			
+			<div class="form-group row">
+				<div class="col-md-8 #{formType == 'form-horizontal' ? 'col-md-offset-2' : ''}">
+					<ui:insert name="botoes" >
+						<ui:insert name="btnSalvar" >
+							<button jsf:id="btnSalvar" class="btn btn-success" 
+								aria-disabled="false" jsf:action="#{bean.cadastrar}" jsf:rendered="#{bean.cadastrando}">
+								<span class="fa fa-save"></span>#{msgs['label.salvar']}
+								<f:ajax  execute="@form" render="form"  />
+							</button>
+						</ui:insert>
+						
+						<ui:insert name="btnAtualizar" >						
+							<button jsf:id="btnAtualizar" class="btn btn-success" jsf:action="#{bean.atualizar()}" 
+							    jsf:rendered="#{bean.atualizando}" >
+								<span class="fa fa-save"></span>#{msgs['label.atualizar']}
+								<f:ajax  execute="@form" render="form" />
+							</button>
+						</ui:insert>
+					</ui:insert>
+				</div>		
+			</div>
+		</h:form>
+</ui:composition>
+</html>

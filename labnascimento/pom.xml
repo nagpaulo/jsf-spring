@@ -1,0 +1,468 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>br.com.tethys</groupId>
+  <artifactId>labnascimento</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <packaging>war</packaging>
+  <name>Sistema de Gestão para Laboratorio de Proteses</name>
+  
+  <properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+		<modulo.id>46</modulo.id>
+		<modulo.nome>${project.name}</modulo.nome>
+		<modulo.versao>${project.version}</modulo.versao>
+
+		<!-- Versao do spring compativel com o SPRING-FACES 2.4.1 -->
+		<spring.version>4.0.6.RELEASE</spring.version>
+		<spring.webflow.version>2.4.1.RELEASE</spring.webflow.version>
+		<spring.security.framework.version>3.2.5.RELEASE</spring.security.framework.version>
+		<spring.data.version>1.7.2.RELEASE</spring.data.version>
+		<java.version>1.8</java.version>
+		<slf4j.version>1.6.6</slf4j.version>
+		<seduc.libs>1.0.0</seduc.libs>		
+		<seduc.components.version>1.1.4</seduc.components.version>
+		<seduc.security.version>1.4.0</seduc.security.version>
+		<seduc.crud.version>1.4.9</seduc.crud.version>
+		<seduc.reports.version>1.3.0</seduc.reports.version>
+		
+	</properties>
+
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-framework-bom</artifactId>
+				<version>${spring.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+
+	<dependencies>
+		<!-- -->
+		<dependency>
+			<groupId>com.sun.faces</groupId>
+			<artifactId>jsf-api</artifactId>
+			<version>2.2.10</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.sun.faces</groupId>
+			<artifactId>jsf-impl</artifactId>
+			<version>2.2.10</version>
+		</dependency>
+
+		<dependency>
+			<groupId>javax.el</groupId>
+			<artifactId>el-api</artifactId>
+			<version>2.2</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>javax.servlet.jsp</groupId>
+			<artifactId>jsp-api</artifactId>
+			<version>2.1</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>jstl</artifactId>
+			<version>1.2</version>
+		</dependency>
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+			<version>3.0.1</version>
+			<scope>provided</scope>
+		</dependency>
+		
+		<dependency>
+			<groupId>joda-time</groupId>
+			<artifactId>joda-time</artifactId>
+			<version>2.7</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>commons-net</groupId>
+			<artifactId>commons-net</artifactId>
+			<version>2.0</version>
+		</dependency>
+		
+		
+		<!-- PRIMEFACES -->
+		<dependency>
+			<groupId>org.primefaces</groupId>
+			<artifactId>primefaces</artifactId>
+			<version>5.3</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.primefaces.extensions</groupId>
+			<artifactId>primefaces-extensions</artifactId>
+			<version>4.0.0</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.webflow</groupId>
+			<artifactId>spring-faces</artifactId>
+			<version>${spring.webflow.version}</version>
+			<exclusions>
+				<exclusion>
+					<artifactId>spring-webmvc</artifactId>
+					<groupId>org.springframework</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>spring-js-resources</artifactId>
+					<groupId>org.springframework.webflow</groupId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-jdbc</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-orm</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.data</groupId>
+			<artifactId>spring-data-jpa</artifactId>
+			<version>${spring.data.version}</version>
+		</dependency>
+		
+		<!--  EMAIL WITH SPRING -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context-support</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>javax.mail</groupId>
+			<artifactId>mail</artifactId>
+			<version>1.4.7</version>
+		</dependency>
+		<!--  -->
+		
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-collections4</artifactId>
+			<version>4.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+			<version>3.4</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>commons-io</groupId>
+			<artifactId>commons-io</artifactId>
+			<version>2.4</version>
+		</dependency>
+				
+		
+		<!-- JWAR -->
+		<dependency>
+			<groupId>net.jawr</groupId>
+			<artifactId>jawr-core</artifactId>
+			<version>3.6</version>
+		</dependency>
+
+		<!-- MyBatis Spring -->
+		<dependency>
+			<groupId>org.mybatis</groupId>
+			<artifactId>mybatis</artifactId>
+			<version>3.2.7</version>
+		</dependency>
+		<dependency>
+			<groupId>org.mybatis</groupId>
+			<artifactId>mybatis-spring</artifactId>
+			<version>1.2.0</version>
+		</dependency>
+
+		<!-- SPRING SECURITY -->
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-config</artifactId>
+			<version>${spring.security.framework.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-web</artifactId>
+			<version>${spring.security.framework.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-taglibs</artifactId>
+			<version>${spring.security.framework.version}</version>
+		</dependency>
+
+		<!-- SEDUC -->
+		<dependency>
+			<groupId>org.apache.poi</groupId>
+			<artifactId>poi</artifactId>
+			<version>3.12</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.poi</groupId>
+			<artifactId>poi-ooxml</artifactId>
+			<version>3.12</version>
+		</dependency>
+
+
+		<!-- JDBC driver for PostgreSQL -->
+		<dependency>
+		    <groupId>org.postgresql</groupId>
+		    <artifactId>postgresql</artifactId>
+		    <version>9.3-1102-jdbc41</version>
+		</dependency>
+
+		<!-- JDBC driver for Oracle -->
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-entitymanager</artifactId>
+			<version>4.3.7.Final</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>c3p0</groupId>
+			<artifactId>c3p0</artifactId>
+			<version>0.9.1.2</version>
+			<scope>compile</scope>
+		</dependency>
+
+		<!-- XA Transactions -->
+		<dependency>
+			<groupId>com.atomikos</groupId>
+			<artifactId>transactions</artifactId>
+			<version>4.0.0M4</version>
+		</dependency>
+		<dependency>
+			<groupId>com.atomikos</groupId>
+			<artifactId>transactions-hibernate4</artifactId>
+			<version>4.0.0M4</version>
+		</dependency>
+
+
+		<!-- Loggers -->
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-log4j12</artifactId>
+			<version>${slf4j.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>${slf4j.version}</version>
+		</dependency>
+
+		<!-- TESTS -->
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.10</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.mockito</groupId>
+			<artifactId>mockito-all</artifactId>
+			<version>1.9.5</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-java</artifactId>
+            <version>2.45.0</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-firefox-driver</artifactId>
+            <version>2.45.0</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>xml-apis</groupId>
+            <artifactId>xml-apis</artifactId>
+            <version>1.4.01</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>16.0.1</version>
+            <scope>test</scope>
+        </dependency>
+
+	</dependencies>
+
+	<build>
+		<finalName>${project.artifactId}</finalName>
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+				<filtering>true</filtering>
+				<includes>
+					<include>**/project.properties</include>
+					<include>**/log4j.properties</include>
+					<include>**/jawr.properties</include>
+				</includes>
+			</resource>
+			<resource>
+				<directory>src/main/resources</directory>
+				<includes>
+					<include>**/MessagesResources.properties</include>
+					<include>**/*.xml</include>
+					<include>**/*.jasper</include>
+					<include>**/*.html</include>
+				</includes>
+			</resource>
+		</resources>
+
+		<testResources>
+			<testResource>
+				<directory>src/test/resources</directory>
+				<filtering>true</filtering>
+				<excludes>
+					<exclude>**/*.ods</exclude>
+					<exclude>**/*.xls</exclude>
+					<exclude>**/*.xlsx</exclude>
+				</excludes>
+			</testResource>
+			<testResource>
+				<directory>src/test/resources</directory>
+				<includes>
+					<include>**/*.ods</include>
+					<include>**/*.xls</include>
+					<include>**/*.xlsx</include>
+				</includes>
+			</testResource>
+		</testResources>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-compiler-plugin</artifactId>
+					<version>2.3.2</version>
+					<configuration>
+						<source>${java.version}</source>
+						<target>${java.version}</target>
+					</configuration>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-war-plugin</artifactId>
+					<configuration>
+						<webXml>${project.basedir}/WebContent/WEB-INF/web.xml</webXml>
+						<warSourceDirectory>WebContent</warSourceDirectory>
+						<addVersionToProjectName>false</addVersionToProjectName>
+						<wtpversion>2.0</wtpversion>
+					</configuration>
+				</plugin>
+				<plugin>
+					<groupId>org.codehaus.mojo</groupId>
+					<artifactId>native2ascii-maven-plugin</artifactId>
+					<executions>
+						<execution>
+							<goals>
+								<goal>native2ascii</goal>
+							</goals>
+							<configuration>
+								<encoding>UTF8</encoding>
+								<src>${basedir}/resources</src>
+								<dest>target/classes</dest>
+								<includes>**/MessagesResources.properties</includes>
+							</configuration>
+						</execution>
+					</executions>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+		<extensions>
+			<extension>
+				<groupId>org.apache.maven.archetype</groupId>
+				<artifactId>archetype-packaging</artifactId>
+				<version>2.2</version>
+			</extension>
+		</extensions>
+	</build>
+
+	<profiles>
+		<profile>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<id>DESENVOLVIMENTO</id>
+			<properties>
+				<activeProfile>DESENVOLVIMENTO</activeProfile>
+				<logger.level>INFO</logger.level>
+				<logger.appender>console</logger.appender>
+				<jpa.show_sql>true</jpa.show_sql>
+				<jpa.format_sql>true</jpa.format_sql>
+				<postgres.url>jdbc:postgresql://localhost:8080/labnascimento</postgres.url>
+				<postgres.username>postgres</postgres.username>
+				<postgres.password>postgres</postgres.password>
+				<postgres.hibernate.format_sql>true</postgres.hibernate.format_sql>
+				<postgres.hibernate.show_sql>true</postgres.hibernate.show_sql>
+				<postgres.hibernate.temp.use_jdbc_metadata_defaults>false</postgres.hibernate.temp.use_jdbc_metadata_defaults>
+				<!-- Caminho para o ponto de montagem em producao -->
+				<conf.pathFiles>C:\\temp\\</conf.pathFiles>
+			</properties>
+		</profile>
+
+		<profile>
+			<id>HOMOLOGACAO</id>
+			<!-- <activation>
+				<activeByDefault>true</activeByDefault>
+			</activation> -->
+			<properties>
+				<activeProfile>HOMOLOGACAO</activeProfile>
+				<logger.level>INFO</logger.level>
+				<logger.appender>console</logger.appender>
+				<jpa.show_sql>true</jpa.show_sql>
+				<jpa.format_sql>true</jpa.format_sql>
+				<postgres.url>jdbc:postgresql://172.31.4.20/homologacao</postgres.url>
+				<postgres.username>saac</postgres.username>
+				<postgres.password>saac</postgres.password>
+				<postgres.hibernate.format_sql>true</postgres.hibernate.format_sql>
+				<postgres.hibernate.show_sql>true</postgres.hibernate.show_sql>
+				<postgres.hibernate.temp.use_jdbc_metadata_defaults>false</postgres.hibernate.temp.use_jdbc_metadata_defaults>
+				<!-- Caminho para o ponto de montagem em producao -->
+				<conf.pathFiles>C:\\temp\\</conf.pathFiles>
+			</properties>
+		</profile>
+		
+		<profile>
+			<id>PRODUCAO</id>
+			<!-- <activation>
+				<activeByDefault>true</activeByDefault>
+			</activation> -->
+			<properties>
+				<activeProfile>PRODUCAO</activeProfile>
+				<logger.level>ERROR</logger.level>
+				<logger.appender>file</logger.appender>
+				<jpa.show_sql>false</jpa.show_sql>
+				<jpa.format_sql>false</jpa.format_sql>
+				<postgres.url>jdbc:postgresql://172.31.4.25/seduc</postgres.url>
+				<postgres.username>leitura</postgres.username>
+				<postgres.password>leitura</postgres.password>
+				<postgres.hibernate.format_sql>false</postgres.hibernate.format_sql>
+				<postgres.hibernate.show_sql>false</postgres.hibernate.show_sql>
+				<postgres.hibernate.temp.use_jdbc_metadata_defaults>false</postgres.hibernate.temp.use_jdbc_metadata_defaults>
+				<!-- Caminho para o ponto de montagem em producao -->
+				<conf.pathFiles>/mnt/sige_vt/</conf.pathFiles>
+			</properties>
+		</profile>
+	</profiles>
+  
+</project>

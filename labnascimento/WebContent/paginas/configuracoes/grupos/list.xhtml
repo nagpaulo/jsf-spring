@@ -1,0 +1,49 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" 
+	xmlns:jsf="http://xmlns.jcp.org/jsf"
+	xmlns:seduc="http://seduc.ce.gov.br/componentes">
+<ui:composition template="/template/padrao-list.xhtml">
+
+	<ui:define name="parametros">
+		<ui:param name="bean" value="#{securityGrupoListBean}" />
+		<ui:param name="transacao" value="GRUPOUSUARIOS" />
+		<ui:param name="tituloPagina" value="#{msgs['grupos.title.list']}" />
+	</ui:define>
+	
+	<ui:define name="tituloPaginaIcon">
+		<i class="fa fa-group"></i>
+	</ui:define>
+
+	<ui:define name="camposFiltro">
+		<ui:param name="filtro" value="#{bean.lazyDataModel.filtro}" />
+		<div class="row">
+			<seduc:formGroup label="#{msgs['label.nome']}" forField="nome" classSize="6">
+				<input type="text" jsf:label="#{msgs['label.nome']}" 
+					jsf:id="nome" jsf:value="#{filtro.nome}" class="form-control" />
+			</seduc:formGroup>
+		</div>
+	</ui:define>
+	
+	<ui:define name="resultadoHeader">
+		<p:column headerText="#{msgs['label.nome']}" sortBy="#{item.nome}"  />
+		<p:column headerText="#{msgs['label.nomeModulo']}" sortBy="#{item.modulo.nome}" />
+		<p:column headerText="#{msgs['label.nivelAcesso']}" style="width:160px" sortBy="#{item.nivelAcesso}" />
+	</ui:define>
+	<ui:define name="resultadoColumn">
+		<p:column>
+			<h:outputText value="#{item.nome}"  />
+		</p:column>
+		<p:column>
+			<h:outputText value="#{item.modulo.descricao}"  />
+		</p:column>
+		<p:column>
+			<h:outputText value="#{item.nivelAcesso.nome}" />
+		</p:column>
+	</ui:define>
+
+</ui:composition>
+</html>

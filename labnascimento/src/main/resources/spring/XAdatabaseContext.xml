@@ -1,0 +1,101 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd"
+	default-lazy-init="true" >
+	
+	<context:property-placeholder location="classpath:project.properties" />
+	
+	<tx:annotation-driven />
+	<tx:jta-transaction-manager  />
+	
+    <!--  Construct Atomikos UserTransactionManager, needed to configure Spring  -->
+    <bean id="atomikosTransactionManager" class="com.atomikos.icatch.jta.UserTransactionManager"
+        init-method="init" destroy-method="close">
+        <!--
+            when close is called, should we force transactions to terminate or not?
+        -->
+        <property name="forceShutdown" value="false" />
+        <property name="transactionTimeout" value="300" />
+    </bean>
+
+    <!--  Also use Atomikos UserTransactionImp, needed to configure Spring  -->
+    <bean id="atomikosUserTransaction" class="com.atomikos.icatch.jta.UserTransactionImp">
+        <property name="transactionTimeout" value="300" />
+    </bean>
+
+    <!--  Configure the Spring framework to use JTA transactions from Atomikos  -->
+    <bean id="transactionManager"
+        class="org.springframework.transaction.jta.JtaTransactionManager">
+        <property name="transactionManager" ref="atomikosTransactionManager" />
+        <property name="userTransaction" ref="atomikosUserTransaction" />
+    </bean>
+	
+
+	<bean id="persistenceExceptionTranslationPostProcessor" class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor" />
+	<bean id="postgresDataSource" class="com.atomikos.jdbc.nonxa.AtomikosNonXADataSourceBean"  
+      	init-method="init" destroy-method="close"> 
+      <property name="uniqueResourceName" value="POSTGRESDBMS" /> 
+      <property name="driverClassName" value="org.postgresql.Driver" /> 
+      <property name="url" value="${postgres.url}" />
+	  <property name="user" value="${postgres.username}" />
+	  <property name="password" value="${postgres.password}" /> 
+	  <property name="maxIdleTime" value="200"/>
+	  <property name="borrowConnectionTimeout" value="120" />
+	  <property name="minPoolSize" value="1"/>
+      <property name="maxPoolSize" value="10"/> 
+      <property name="reapTimeout" value="900"/>
+      <property name="testQuery" value="select 1"/> 
+   </bean> 
+	
+	
+	<bean id="postgresEntityManagerFactory"
+		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+		<property name="dataSource" ref="postgresDataSource" />
+		<property name="persistenceUnitName" value="postgresPU" />
+		<property name="jpaVendorAdapter">
+			<bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter" />
+		</property>
+		<property name="jpaProperties">
+			<props>
+				<prop key="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</prop>
+				<prop key="hibernate.show_sql">${jpa.show_sql}</prop>
+				<prop key="cache.provider_class">org.hibernate.cache.NoCacheProvider</prop>
+				<prop key="hibernate.format_sql">${jpa.format_sql}</prop>
+				<prop key="hibernate.generate_statistics">false</prop>
+				<prop key="hibernate.temp.use_jdbc_metadata_defaults">false</prop>
+				<prop key="hibernate.current_session_context_class">jta</prop>
+				<prop key="javax.persistence.transactionType">jta</prop>
+                <prop key="hibernate.transaction.jta.platform">com.atomikos.icatch.jta.hibernate4.AtomikosPlatform</prop>
+				<prop key="hibernate.connection.release_mode">after_transaction</prop>
+				<prop key="hibernate.connection.autocommit">false</prop>
+			</props>
+		</property>
+		<property name="packagesToScan">
+			<list>
+				<value>br.com.tethys.labnascimento.entity</value>
+				<value>br.com.tethys.labnascimento.security.entity</value>
+			</list>
+		</property>
+	</bean>
+	
+	<!-- Mybatis Postgres SQL Factory -->
+	<bean id="postgresSqlFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+	  <property name="dataSource" ref="postgresDataSource" />
+	  <property name="configLocation" value="classpath:mybatis/mybatis-postgres-config.xml" />
+	  <property name="mapperLocations" value="classpath:mybatis/postgres/*.xml"></property>
+	</bean>
+	<bean id="postgresSqlSession"
+		 factory-bean="postgresSqlFactory"
+		 factory-method="openSession"
+		 class="org.apache.ibatis.session.SqlSession"
+		 destroy-method="close"
+	 />
+
+</beans>

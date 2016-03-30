@@ -1,0 +1,113 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" xmlns:jsf="http://xmlns.jcp.org/jsf">
+<ui:composition template="/template/padrao-list.xhtml">
+	
+	
+	<ui:define name="parametros">
+		<ui:param name="bean" value="#{usuarioListBean}" />
+		<ui:param name="transacao" value="USUARIOS" />
+		<ui:param name="tituloPagina" value="Usuários - Pesquisa" />
+	</ui:define> 
+	
+	<ui:define name="tituloPaginaIcon">
+		<i class="fa fa-users"></i>
+	</ui:define>
+
+	<ui:define name="camposFiltro">
+		<ui:param name="filtro" value="#{usuarioListBean.usuarios.filtro}" />
+		<div class="row">
+			<div class="col-md-6">
+				<div class="form-group">
+					<label class="control-label">Nome:</label> <input type="text"
+						name="search1" jsf:id="nome" jsf:value="#{filtro.nome}"
+						class="form-control" />
+				</div>
+				<div class="form-group">
+					<label class="control-label">E-mail:</label> <input type="text"
+						jsf:id="email" name="search3" jsf:value="#{filtro.email}"
+						class="form-control" maxlength="100" />
+				</div>
+			</div>
+			<div class="col-md-6">
+				<div class="form-group">
+					<label class="control-label">Login:</label> <input type="text"
+						jsf:id="login" name="search2" jsf:value="#{filtro.login}"
+						maxlength="50" class="form-control" />
+				</div>
+				<div class="form-group">
+					<label class="control-label">CPF:</label> <input type="text"
+						jsf:id="cpf" name="search4" jsf:value="#{filtro.cpf}"
+						onkeypress="mask(this, cpf)" maxlength="14" class="form-control" />
+				</div>
+			</div>
+		</div>
+	</ui:define>
+
+	<ui:define name="conteudoResultado">
+		<p:dataTable value="#{usuarioListBean.usuarios}" var="u" lazy="true"
+			rows="10"
+			tableStyleClass="table table-striped table-bordered table-hover table-condensed"
+			paginator="true" paginatorPosition="bottom"
+			paginatorAlwaysVisible="true" widgetVar="tableResultado"
+			paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {CurrentPageReport} "
+			currentPageReportTemplate="Página {currentPage} de {totalPages} ({totalRecords} registros)">
+			<p:columnGroup type="header">
+				<p:row>
+					<p:column headerText="Usuário" />
+					<p:column headerText="Login" />
+					<p:column headerText="Cpf" style="width:120px" />
+					<p:column headerText="Email" />
+					<p:column headerText="" width="35" />
+				</p:row>
+			</p:columnGroup>
+			<p:column>
+				<h:outputText value="#{u.nome}" />
+			</p:column>
+			<p:column>
+				<h:outputText value="#{u.login}" />
+			</p:column>
+			<p:column>
+				<h:outputText value="#{u.cpf}" />
+			</p:column>
+			<p:column>
+				<h:outputText value="#{u.email}" />
+			</p:column>
+			<p:column>
+				<h:link outcome="form.jsf?reg=#{u.id}"
+					styleClass="btn btn-success btn-xs" title="Editar">
+					<span class="glyphicon glyphicon-pencil"></span>
+				</h:link>
+				
+				<p:commandLink styleClass="btn btn-success btn-xs" process="@this" 
+					 update=":dlg" oncomplete="PF('dlgTeste').show()" >
+					 <span class="glyphicon glyphicon-pencil"></span>
+					 <f:setPropertyActionListener value="#{u.id}" target="#{usuarioFormBean.id}" />
+				</p:commandLink>
+			</p:column>
+		</p:dataTable>
+	</ui:define>
+	
+	<ui:define name="dialogs">
+		
+		<p:outputPanel id="dialogsTeste">
+			<p:dialog  widgetVar="dlgTeste" modal="true"  header="DLG!" width="1050"  >
+				<p:outputPanel id="dlg">
+					<ui:param name="entity" value="#{usuarioFormBean.entity}" />
+					#{usuarioFormBean.prepareView()}
+					<p:outputPanel rendered="#{usuarioFormBean.entity.id != null}">	
+						<ui:include src="_form-usuario.xhtml" />
+					</p:outputPanel>
+				</p:outputPanel>
+			</p:dialog>
+		</p:outputPanel>
+		
+	</ui:define>
+
+	<ui:define name="bottomButtons"></ui:define>
+
+</ui:composition>
+</html>

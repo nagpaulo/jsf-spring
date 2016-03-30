@@ -1,0 +1,75 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:jsf="http://xmlns.jcp.org/jsf"
+	xmlns:seduc="http://seduc.ce.gov.br/componentes">
+<ui:decorate template="/template/form.xhtml" >
+	
+	<ui:define name="conteudo">
+		<seduc:formGroup label="#{msgs['label.unidadeTrabalho']}" forField="instituicaoLov" classSize="12">
+			<seduc:lov  id="instituicaoLov"
+		   			   			value="#{entity.unidadeDeTrabalho}"
+								header="#{msgs['label.unidadeTrabalho']}"
+								label="#{msgs['label.unidadeTrabalho']}"
+								required="true"
+								lista="#{bean.unidadeDeTrabalhoDataModel}"
+								codigo="#{bean.unidadeDeTrabalhoDataModel.filtro.numero}"
+								descricao="#{bean.unidadeDeTrabalhoDataModel.filtro.descricao}">									
+								
+						<p:column headerText="#{msgs['label.inep']}" width="120" >#{item.numero}</p:column>
+						<p:column headerText="#{msgs['label.nome']}">#{item.descricao}</p:column>	 
+					</seduc:lov>
+		</seduc:formGroup>
+		<seduc:formGroup label="#{msgs['label.nome']}" forField="nome" classSize="6">
+			<p:inputText id="nome" label="#{msgs['label.nome']}" value="#{entity.nome}" size="50"
+				required="true" maxlength="50" styleClass="form-control">
+			</p:inputText>
+		</seduc:formGroup>
+		<seduc:formGroup label="#{msgs['label.login']}" forField="login" classSize="6">
+			<p:inputText id="login" label="#{msgs['label.login']}" value="#{entity.login}" size="30"
+						maxlength="30" styleClass="form-control" required="true" />
+		</seduc:formGroup>	
+		<seduc:formGroup label="#{msgs['label.cpf']}" forField="cpf" classSize="6">
+			<p:inputMask id="cpf" mask="999.999.999-99" label="#{msgs['label.cpf']}" value="#{entity.cpf}" size="20"
+						maxlength="14" styleClass="form-control" required="true" converter="cpfConverter" />
+		</seduc:formGroup>	
+		<seduc:formGroup label="#{msgs['label.email']}" forField="email" classSize="6">
+			<p:inputText id="email" label="#{msgs['label.email']}" maxlength="50"
+						style="text-transform: lowercase;" value="#{entity.email}" size="50"
+						styleClass="form-control" required="true" />
+		</seduc:formGroup>	
+		<seduc:formGroup label="#{msgs['label.dataNascimento']}" forField="dataNascimento" classSize="6">
+			<div>
+				<p:calendar id="dataNascimento" readonlyInput="false" required="true"
+					pattern="dd/MM/yyyy"  value="#{entity.dataNascimento}" mask="99/99/9999"
+					 />
+			</div>
+		</seduc:formGroup>
+		<seduc:formGroup label="#{msgs['label.grupos']}" forField="grupos" classSize="12">
+				<p:pickList id="grupos" label="#{msgs['label.grupos']}" styleClass="grupos"
+						value="#{bean.grupos}" var="grupo" 
+						itemLabel="#{grupo.nome}" itemValue="#{grupo}"
+						showSourceFilter="true" showTargetFilter="true"
+						filterMatchMode="contains" converter="genericEntityConverter" >
+						<f:facet name="sourceCaption">#{msgs['label.disponiveis']}</f:facet>
+						<f:facet name="targetCaption">#{msgs['label.vinculados']}</f:facet>
+						
+						<p:column>
+            				<h:outputText value="#{grupo.nome}" title="#{grupo.nome} - #{grupo.modulo.descricao}" />
+        				</p:column>
+					</p:pickList>
+		</seduc:formGroup>
+		<style>
+			.grupos .ui-picklist-source{
+				width: 250px;
+			}
+			.grupos .ui-picklist-target{
+				width: 250px;
+			}
+		</style>
+	</ui:define>
+	
+</ui:decorate>
+</html>

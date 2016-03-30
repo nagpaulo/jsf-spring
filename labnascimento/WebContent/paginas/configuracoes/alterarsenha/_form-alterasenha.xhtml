@@ -1,0 +1,40 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:jsf="http://xmlns.jcp.org/jsf"
+	xmlns:seduc="http://java.sun.com/jsf/composite/componentes">
+<ui:composition>
+
+	<h:form id="form" prependId="false">
+		<p:messages escape="false"  />
+	
+		<div class="col-md-6">
+			<div class="form-group">
+				<label>Senha Atual:*</label>
+				<p:password id="senhaAtual" label="Senha Atual" value="#{bean.senhaAtual}" required="true"
+					styleClass="form-control" validator="#{bean.validaSenhaAtual}" />
+			</div>
+			<div class="form-group">
+				<label>Nova Senha:*</label>
+				<p:password id="novaSenha" label="Nova Senha" value="#{bean.senha}" required="true"
+					styleClass="form-control" match="confirmacaoSenha" validatorMessage="Confirmação de senha não confere." />
+			</div>
+			<div class="form-group">
+				<label>Confirmação Senha:*</label>
+				<p:password id="confirmacaoSenha" label="Confirmação Senha" required="true" value="#{bean.senha}"
+					 styleClass="form-control" />
+			</div>
+			
+			<div class="form-group">
+				<button jsf:id="btInsertEdit" class="btn btn-success" aria-disabled="false" jsf:action="#{bean.salvar}" >
+					<span class="glyphicon glyphicon-save"></span> Salvar
+					<f:ajax  execute="@form" render="form"  />
+				</button>
+			</div>
+		</div>
+	</h:form>
+
+</ui:composition>
+</html>

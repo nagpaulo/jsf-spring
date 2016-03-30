@@ -1,0 +1,95 @@
+body{font-family: 'Open Sans', sans-serif; color:#546068; margin:0; background: url("../imgs/background.png") repeat}
+h1{margin: 0 !important; font-size: large; text-shadow: 1px 1px 2px #cccccc;}
+h1 .line2{color:#019837; display: block; font-weight: bold; font-size: 150%}
+h3{ margin-top: 0 !important  }
+small{color:#019837}
+a{color: #019837}
+a:hover{color: #01692f}
+/*input, select{background: #eeffe9 !important}*/
+#top{width: 100%; background: url("../imgs/bg.jpg") repeat-x; padding: 15px 0 0 0; /*position: fixed; z-index: 999;*/}
+#top > .container{padding: 15px 0}
+
+
+#content{/*padding-top: 165px*/}
+#content.adjust{padding-top: 65px}
+
+
+.f-nav{ z-index: 9999; position: fixed; left: 0; top: 0; width: 100%;}
+#conteudo.adjust{padding-top: 65px}
+#conteudo h3{margin-top:0}
+
+.user-info{color: #01692f; padding: 2px; font-size: 11px; margin-top: -30px; margin-bottom: 15px}
+.user-info i{margin-left:5px}
+.bem-vindo{border: 3px solid #019837; background: #ffffff; padding:20px 10px; width: 400px; margin:0 auto; border-radius:9px; box-shadow:1px 2px 20px #999999; margin-top:50px}
+.command-page{float: right; margin-top:-35px; font-size: 18px; text-decoration: none !important;}
+
+
+#footer{width: 100%; border-top: 3px solid #019837; margin-top: 20px; padding: 10px 0; background: #ffffff}
+.footer-fixed{z-index: 9999; position: fixed; left: 0; bottom: 0; width: 100%;}
+.typeahead .active a{background:#019837 !important}
+.nav-pills>li.active>a, .nav-pills>li.active>a:hover, .nav-pills>li.active>a:focus{background: #019837}
+a:focus{color:#01692f !important}
+ul.list-group>li.list-group-item.active{background: #019837; border-color:#01692f;}
+ul.list-group>li.list-group-item.active a{color:#ffffff; text-shadow:#01692f !important}
+.list-group-item.active, .list-group-item.active:hover, .list-group-item.active:focus{color:#ffffff; text-shadow:0 -1px 0 #01692f !important}
+fieldset{ border: 1px solid #ddd; padding:8px; border-radius:9px; margin-bottom:10px}
+legend{color:#019837 !important; display:inline-block; width: auto; padding: 8px; border-bottom:none; margin-bottom:0; font-size: 16px; font-weight: bold}
+.btn-adjust{margin-top:24px}
+
+.table-hover>tbody>tr:hover>td, .table-hover>tbody>tr:hover>th{background-color:#d7efe2; color:#000}
+#titulo_compra{ display: block; width: 100%; padding: 0; margin-bottom: 20px; font-size: 16px; line-height: inherit; color: #333; border: 0; border-bottom: 1px solid #e5e5e5; }
+#titulo_form_compra{ display: block; width: 100%; padding: 0; margin: 20px 0 20px 0; font-size: 14px; line-height: inherit; color: #333; border: 0; border-bottom: 1px solid #e5e5e5; }
+#form-center { width: 65%; top:0px; bottom:0px; margin:auto; margin-top: 20px; }
+.label_result{ font-size: 12px;}
+#paginacao{display: block; height: 25px; float: left; margin-top:-10px}
+#paginacao-info{display: block; height: 25px; float: right; background:#eee; border-radius:5px; padding: 3px 5px; margin-top:-10px; font-size:12px}
+
+.marcador-ambiente{	position: absolute; margin-top: -30px;left:0px; color:red; font-size: 12px }
+
+#formDelete{ display: inline-block; float:left; margin-top: -28px; }
+#nomeSistema:hover{ text-decoration: none;   }
+
+.form-group .fa , .command-page .fa{
+	margin-right: 3px;
+}
+
+#dataTableVinculosLotacao table , #panelLista table{
+	margin-bottom:0px !important;
+}
+.text-center{
+	text-align:center;
+}
+
+.form-control{
+	height: 31px !important;
+}
+.form-group{
+	margin-bottom: 5px !important;
+}
+
+.ui-outputlabel-rfi{
+  color: #a94442;
+}
+label{
+	margin-bottom: 1px !important;
+}
+label.ui-state-error {
+	border: 0 !important;
+	background: none;
+	color: red;
+}
+.camposObrigatorios{
+	color: #a94442;
+	font-weight: bold;
+/* 	color: #EE9A00; */
+}
+
+@media screen and (max-width: 767px) {
+	.tb-permissoes{
+		min-width: 800px;
+	}
+}
+
+.ui-inputswitch .ui-inputswitch-on,.ui-inputswitch .ui-inputswitch-off {
+	padding-top:0px !important;
+}

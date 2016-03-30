@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
+<ui:composition>
+	<ui:param name="path" value="#{request.contextPath}" />
+		
+	
+	<p:outputPanel  id="dialogsPanel">
+		<p:dialog id="carregandoDialog"  modal="true" widgetVar="carregando" closable="false" resizable="false" >
+			 <div style="text-align:center;" >
+			 	<h:panelGrid columns="2">
+					<span class="fa fa-spinner fa-spin" style="font-size:24px;" />
+					<span style="font-weight: bold">Carregando...</span>
+				</h:panelGrid>
+			</div>
+		</p:dialog>
+		
+		
+		<p:dialog fixedCenter="true" id="errorAjaxDialog" width="400" header="Aviso" widgetVar="errorAjax" resizable="false"
+	  			showEffect="fade"  hideEffect="fade"  visible="false" closable="false" 
+	  			onShow="try {jQuery('#formPanel\\:btnError').focus();} catch(e) {}" modal="true" >
+	             <h:panelGroup  id="painelMensagensAjax">
+					 <span id="messages"/> 
+					 <br clear="all" />
+					 <div style="vertical-align: bottom; text-align: center">
+						 <p:commandButton value=" OK " 
+					     				  id="btnError"
+					     				  styleClass="btVerde"
+									      onclick="PF('errorAjax').hide();" 
+									      type="button"/>
+					 </div>
+				</h:panelGroup>	
+	         </p:dialog>
+	</p:outputPanel>		
+</ui:composition>
+</html>
